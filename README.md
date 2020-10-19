@@ -79,15 +79,31 @@ Some of the most typical issues with virtualization have always been performance
 
 I didn't try more complex networking setup with e.g. bunch of Docker containers running on WSL and exposing TCP ports from those Windows. I'd assume there's going to be pain to get things nice and smooth. 
 
-## Some notes on VirtualBox
+## VirtualBox
 
-The old-school / traditional / heavy approach of running Linux on Windows is to use a virtual machine inside e.g. VirtualBox.
+The old-school / traditional / heavy approach of running Linux on Windows is to use a virtual machine inside e.g. VirtualBox. This time I tried Ubuntu 20.04.1.
 
-To compare the user experience of using a VM to the WSL experience, I installed the same Ubuntu version in a VirtualBox VM and tried how it feels to run the VM with UI (Gnome). I tried installing IntelliJ on such a VM and testing how it feels to use it.
+### Installation and setup notes
 
-The sad truth is that the experience is not very good. Everything is slower than when using a native app (running on Windows). Just having the bootup delay is something that feels annoying after playing around with WSL.
+It's probably a good idea to make the root drive big enough for the future. Resizing is surprisingly painful. The disk file size on Windows will automatically grow to fit the VM disk, however it will never shrink.
 
-It'd be a much much better user experience one could retire VB and use WSL instead.
+For developing things you'll want to have more processors allocated for the VM than the default one. 
+
+To run the UI with a proper resolution you need to increase "Video Memory" in Display -> Screen. Max it out to 128MB.
+
+For the following features you need to install the VirtualBox Guest Additions. If the Additions are not correctly installed, the features (e.g. clipboard sharing) won't work and there's no error message.
+
+I personally like to have just one clipboard, by default the VM and Windows don't share their clipboards. By having a biderectional way I can e.g. browse in Windows and copy-paste text from the browser to the VM. The "Shared Clipboard" can be configured in General -> Advanced in the VM config.
+
+### UI performance
+
+To compare the user experience of using a VM to the WSL experience, I installed the same Ubuntu version as in WSL in a VirtualBox VM and tried how it feels to run the VM with UI (Gnome). I tried installing IntelliJ on such a VM and testing how it feels to use it.
+
+The sad truth is that the UI experience is not as good as with native Windows applications. Everything is _just a little bit_ slower.
+
+Also, just having the bootup delay is something that feels annoying after playing around with WSL. It'd be a much much better user experience if one could retire VB and use WSL instead.
+
+But, I have to say the experience is least to say usable. I don't think I'd feel bad using this setup for hours / days.
 
 ### VirtualBox and WSL
 
@@ -95,10 +111,17 @@ It seems that VirtualBox (at least 6.1.X) and WSL 2 don't work simultaneously. I
 
 This a very good example of problems that arise when using virtualization. The problems are impossible to prevent and next to impossible to debug. And this category of problems come and go, it's perfectly possible something works today but not in a year. As a developer I want to spend 0% of my time dealing with issues like this.
 
+## Dual boot
+
+For decades it has been possible to install Linux and Windows on the same physical storage medium side by side and on boot time select which one to use. The benefits of this approach are everything you get from running the OS on metal, e.g. performance. The main drawback is that this is awkward if you want to switch between OSes. And why wouldn't you?
+
 ## Conclusions
 
 WSL 2 is a very nice and welcome feature to Windows. It seems it has traction in Microsoft and will be improved in the future. It seems that even as it is now, it does provide a lot of value, e.g. by being able to run `bash` and work on command line. However, for many use cases, it just is not good enough e.g. because of the disk IO and the fact that you're limited to use only command line programs.  
 
-VirtualBox.... What can I say. If you really need to run Linux desktop on Windows, you can use it. But honestly, the user experience is too sluggish. You don't want to use VB as your main development environment.
+VirtualBox.... What can I say. If you really need to run Linux desktop on Windows, you can use it. I guess whether to use VirtualBox or a dual boot depends on the use case. For occasional development, VirtualBox probably makes most sense, but if you work mostly on Linux-side, maybe go for dual boot.
+
+For me personally, it right now looks like I'm going to use Ubuntu on VirtualBox.
+
 
 
