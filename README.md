@@ -59,7 +59,7 @@ In `profiles` -> `list` you should see your Linux profile. Copy-paste the guid o
 
 Like in any terminal app there are tons of knobs to turn to make it feel your own, have a look at the conf guide.
 
-Here's what it looks like to run `emacs` and `vi` side by side. No need to end the editor war, you can run both :) And both on Linux on Windows. Piece :) Next we'll somehow mix macOS to the soup... 
+Here's what it looks like to run `emacs` and `vi` side by side. No need to end the editor war, you can run both :) And both on Linux on Windows. Peace :) Next we'll somehow mix macOS to the soup... 
 
 ![Vi and Emacs](images/wsl-vi-emacs.png)
 
