@@ -123,5 +123,5 @@ VirtualBox.... What can I say. If you really need to run Linux desktop on Window
 
 For me personally, it right now looks like I'm going to use Ubuntu on VirtualBox.
 
-
+EDIT: see [my comments](virtualbox.md) on using VirtualBox.
 
