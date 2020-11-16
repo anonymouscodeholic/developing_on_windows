@@ -29,3 +29,5 @@ When listening to music, I tend to use Spotify on Windows. After all, at any tim
 ## Open issues
 
 The mousewheel doesn't work as well as it should. If you roll the wheel fast, it's likely the scrolling doesn't follow. So far I haven't been able to find out the reason. There are ideas out there what could be the issue, but the fixes haven't worked.
+
+Sometimes, maybe even most of the times, after the VM has been resumed from the saved state, when I make it full screen, the screen looks like a mess, almost like white noise with strange horizontal lines. Repeating the exit full screen, enter full screen-cycle makes the full screen work eventually. There are similar display-related issues in Chrome. Sometimes the content section of Chrome gets corrupt, it might 50% just black or sometimes scrolling doesn't work.
