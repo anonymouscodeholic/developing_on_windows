@@ -26,6 +26,10 @@ It's slightly annoying that the right CTRL is the hot key that one can use (CTRL
 
 When listening to music, I tend to use Spotify on Windows. After all, at any time, I might stop using the VM and continue with something not needed Linux on the Windows-side. I don't want to have the hassle of stopping Spotify on the VM and starting it again on Windows (and vice versa). Here the issue is that the play, stop etc keys on the keyboard don't work for Spotify since Ubuntu handles the signals. My Ubuntu is essentially silent, it never needs to emit any sounds. I haven't tried to fix this. Now if I want to change the song I need to exit the full screen VM and use Spotify on the Windows side.
 
+In Android Studio, running an Android Virtual Device (AVD) greatly benefits of acceleration. The acceleration [restrictions](https://developer.android.com/studio/run/emulator-acceleration#vm-accel-restrictions) of AVD specifically state that "You can't run a VM-accelerated emulator inside another VM, such as a VM hosted by VirtualBox, VMWare, or Docker. You must run a VM-accelerated emulator directly on your host computer". In VirtualBox, however one can enable (running on a quite recent processor) "Enable Nested VT-x/AMD-V" to enable virtualization on the VM. This sounds like it would allow using acceleration in AVD, but if you do this and try to run an accelerated AVD:
+
+![nested virtualization unsupported](./images/nested_virtualization_unsupported.png)
+
 ## Open issues
 
 The mousewheel doesn't work as well as it should. If you roll the wheel fast, it's likely the scrolling doesn't follow. So far I haven't been able to find out the reason. There are ideas out there what could be the issue, but the fixes haven't worked.
