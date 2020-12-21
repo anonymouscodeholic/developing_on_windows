@@ -1,6 +1,6 @@
 # Developing on Windows
 
-Developers love the power of command line, nice package management. Basically, an Unix-like environment. Most developers nowadays prefer Mac and some (like me sometimes) Linux. However there are tons of reasons of buying a PC instead of a Mac, one very important being the pricing. When spending your own money you don't really want to pay the Apple tax. Also, if you happen to be a gamer, the odds are that you own a powerful Windows PC. Why buy a Mac just for development? Also, when you happen to have the PC, why install Linux on that just 
+Developers love the power of command line, nice package management. Basically, a Unix-like environment. Most developers nowadays prefer Mac and some (like me sometimes) Linux. However there are tons of reasons of buying a PC instead of a Mac, one very important being the pricing. When spending your own money you don't really want to pay the Apple tax. Also, if you happen to be a gamer, the odds are that you own a powerful Windows PC. Why buy a Mac just for development? Also, when you happen to have the PC, why install Linux on that just 
 
 This document is about exploring the world of Windows as a development environment for somebody preferring nice things from Linux/Mac such as command line.
 
