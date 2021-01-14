@@ -39,7 +39,7 @@ And without delay you get a Bash prompt that is running on a Linux instance. Mag
 
 ![bash on wsl](images/wsl-bash.png)
 
-The shell feels native, you couldn't tell there's another kernel running it. There are no strange behaviours and annoyances, e.g copy-pasting just works. 
+The shell feels native, you couldn't tell there's another kernel running it. There are no strange behaviours and annoyances, e.g. copy-pasting just works. 
 
 A cool feature is that the Windows file system is mounted, typically in `/mnt/c` allowing things like editing files on your Windows home directory using `vi` or `emacs`.  
 
@@ -47,9 +47,9 @@ A cool feature is that the Windows file system is mounted, typically in `/mnt/c`
 
 Although running a shell is simple, I'd recommend using [Windows Terminal](https://docs.microsoft.com/en-us/windows/terminal/) instead. It gives you more. WSL is integrated with Windows Terminal. WT is a fully fledged terminal app with tabs and split panes and you can have as many as you want Linux shells in it. This feels like running Terminal app on Ubuntu or iTerm2 on Mac. It's pretty cool that in WT you can mix and match WSL shells with Windows command prompt and PowerShell.
 
-One minor complaint I have is that e.g. in Ubuntu terminal you can double-click a word and it gets selected. There's no such functionality as least by defeault.
+One minor complaint I have is that e.g. in Ubuntu terminal you can double-click a word and it gets selected. There's no such functionality, at least by defeault.
 
-A small thing you might want to do is to use your WSL shell as the default in WT. From the box it uses PowerShell. Open WT and do `CTRL+,`. You'll see something like:
+A small thing you might want to do is to use your WSL shell as the default in WT. Out of the box the default is PowerShell. Open WT and do `CTRL+,`. You'll see something like:
 
 ```
 "defaultProfile": "{61c54bbd-c2c6-5271-96e7-009a87ff44bf}",
@@ -65,7 +65,7 @@ Here's what it looks like to run `emacs` and `vi` side by side. No need to end t
 
 ### Developing using VS code
 
-What is great in native apps is they are native. They will always be snappier, better integrated with the OS etc than anything running remotely. Because of this MS has developed a mechanism to run VS code on Windows (to make the IDE UI great), but to execute the code on WSL. Can this really work?
+What is great in native apps is they are native. They will always be snappier, better integrated with the OS etc than anything running remotely. Remember, you can't run GUI apps on WSL. Because of this MS has developed a mechanism to run VS code on Windows (to make the IDE UI great), but to execute the code on WSL. Can this really work?
 
 The good news is that that simple things really work. You can e.g. develop on Python and run on Linux:
 
@@ -75,15 +75,23 @@ This is pretty cool. VS Code will actually install the required plug-ins on WSL 
 
 ### Issues
 
-Some of the most typical issues with virtualization have always been performance related. In WSL case there are fundamental issues related to disk IO performance that are caused by the WSL architecture. The WSL instance (Ubuntu) has a WSL-local ext4 partition mounted to `/`. The Windows drive, typically C is mounted to `/mnt/c` as type [9p](https://en.wikipedia.org/wiki/9P_(protocol)). From Windows you can access the WSL disk e.g. by opening `\\wsl$` in Windows Explorer. Note that cross-using disk is over network, for both directions (from Windows to WSL and from WSL to Windows). Is this fast? Depends on the speed you need. When doing basic stuff like browsing file system (on shell or in Windows Explorer), you probably won't notice anything. But when doing something heavier the performance _can be_ intolerable. I tried having a largish Java project (Apache Flink) on the Windows drive and opening it up on VS Code (Windows native, using WSL remote). It took eternity to open it, at least half an hour. I'd assume this is at least 10 times slower than if everything (IDE and files) were local. I verified the same performance characteristics when compiling Maven. Very slow.
+Some of the most typical issues with virtualization have always been performance related. In WSL case there are potentially blocker issues related to disk IO performance that are caused by the WSL architecture. The WSL instance (Ubuntu) has a WSL-local ext4 partition mounted to `/`. The Windows drive, typically C is mounted to `/mnt/c` as type [9p](https://en.wikipedia.org/wiki/9P_(protocol)). From Windows you can access the WSL disk e.g. by opening `\\wsl$` in Windows Explorer. Note that cross-using disk is over network, for both directions (from Windows to WSL and from WSL to Windows). Is this fast? Depends on the speed you need. When doing basic stuff like browsing file system (on shell or in Windows Explorer), you probably won't notice anything. But when doing something heavier the performance _can be_ intolerable. I tried having a largish Java project (Apache Flink) on the Windows drive and opening it up on VS Code (Windows native, using WSL remote). It took eternity to open it, at least half an hour. I'd assume this is at least 10 times slower than if everything (IDE and files) were local. I verified the same performance characteristics when compiling Maven. Very slow.
 
-I didn't try more complex networking setup with e.g. bunch of Docker containers running on WSL and exposing TCP ports from those Windows. I'd assume there's going to be pain to get things nice and smooth. 
+I didn't try more complex networking setup with e.g. bunch of Docker containers running on WSL and exposing TCP ports from those Windows. I'd assume there's going to be pain to get things nice and smooth.
+
+Since the issue is architectural, there's can be no fix unless the architecture is rewamped. This is kind of sad.
+
+### Conclusions
+
+I didn't end up using WSL for anything more than experimenting. For my use cases, it didn't work well enough. I think it has potential though.
 
 ## VirtualBox
 
-The old-school / traditional / heavy approach of running Linux on Windows is to use a virtual machine inside e.g. VirtualBox. This time I tried Ubuntu 20.04.1.
+The old-school / traditional / heavy approach of running Linux on Windows is to fire up a virtual machine inside e.g. VirtualBox. This time I tried Ubuntu 20.04.1.
 
 ### Installation and setup notes
+
+Here come some notes of what I learned while installing and setting up the VM.
 
 It's probably a good idea to make the root drive big enough for the future. Resizing is surprisingly painful. The disk file size on Windows will automatically grow to fit the VM disk, however it will never shrink.
 
@@ -91,9 +99,9 @@ For developing things you'll want to have more processors allocated for the VM t
 
 To run the UI with a proper resolution you need to increase "Video Memory" in Display -> Screen. Max it out to 128MB.
 
-For the following features you need to install the VirtualBox Guest Additions. If the Additions are not correctly installed, the features (e.g. clipboard sharing) won't work and there's no error message.
+To use some features (e.g. clipboard sharing) of VirtualBox you need to install the VirtualBox Guest Additions. If the Additions are not _correctly_ installed, the features  won't work and there's no error message.
 
-I personally like to have just one clipboard, by default the VM and Windows don't share their clipboards. By having a biderectional way I can e.g. browse in Windows and copy-paste text from the browser to the VM. The "Shared Clipboard" can be configured in General -> Advanced in the VM config.
+I personally like to have just one clipboard, by default the VM and Windows don't share their clipboards. By having a bidirectional way I can e.g. browse in Windows and copy-paste text from the browser to the VM. The "Shared Clipboard" can be configured in General -> Advanced in the VM config.
 
 ### UI performance
 
@@ -107,9 +115,15 @@ But, I have to say the experience is least to say usable. I don't think I'd feel
 
 ### VirtualBox and WSL
 
-It seems that VirtualBox (at least 6.1.X) and WSL 2 don't work simultaneously. If you try that [strange problems](https://askubuntu.com/questions/1239382/error-when-installing-ubuntu-20-04-in-virtualbox), probably a [VirtualBox](https://www.virtualbox.org/ticket/19766) arise. This is a very sad thing, since it prevents one from having a nice shell in Windows (WSL) and running a full fledged VM at the same time (VirtualBox). You have to select one of these and can't even change the selection withtout reboot :(  Hopefully this gets fixed.
+It seems that VirtualBox (at least 6.1.X) and WSL 2 don't work simultaneously. If you try that, you'll have [strange problems](https://askubuntu.com/questions/1239382/error-when-installing-ubuntu-20-04-in-virtualbox), probably a [VirtualBox issue](https://www.virtualbox.org/ticket/19766) arise. This is a very sad thing, since it prevents one from having a nice shell in Windows (WSL) and running a full fledged VM at the same time (VirtualBox). You have to select one of these and can't even change the selection withtout reboot :(  Hopefully this gets fixed.
 
-This a very good example of problems that arise when using virtualization. The problems are impossible to prevent and next to impossible to debug. And this category of problems come and go, it's perfectly possible something works today but not in a year. As a developer I want to spend 0% of my time dealing with issues like this.
+This a very good example of problems that arise when using virtualization. The problems are impossible to anticipate and prevent and next to impossible to debug. You'll end up wasting a lot of time. And this category of problems come and go, it's perfectly possible something works today but not in a year. As a developer I want to spend 0% of my time dealing with issues like this.
+
+### Conclusions
+
+I ended up using VirtualBox to develop a hobby project. It worked. The overall experience is not at all that nice as using a Mac or a Ubuntu directly running on the hardware.
+
+I don't really what to say. In the end I started feeling that I should have installed Ubuntu on its own partition. Using VirtualBox will always be clumsier than not using it. And when working on something for hours and days you really want everything to be as smooth as possible. 
 
 ## Dual boot
 
