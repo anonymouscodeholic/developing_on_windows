@@ -125,17 +125,9 @@ I ended up using VirtualBox to develop a hobby project. It worked. The overall e
 
 I don't really what to say. In the end I started feeling that I should have installed Ubuntu on its own partition. Using VirtualBox will always be clumsier than not using it. And when working on something for hours and days you really want everything to be as smooth as possible. 
 
-## Dual boot
-
-For decades it has been possible to install Linux and Windows on the same physical storage medium side by side and on boot time select which one to use. The benefits of this approach are everything you get from running the OS on metal, e.g. performance. The main drawback is that this is awkward if you want to switch between OSes. And why wouldn't you?
-
 ## Conclusions
 
 WSL 2 is a very nice and welcome feature to Windows. It seems it has traction in Microsoft and will be improved in the future. It seems that even as it is now, it does provide a lot of value, e.g. by being able to run `bash` and work on command line. However, for many use cases, it just is not good enough e.g. because of the disk IO and the fact that you're limited to use only command line programs.  
 
 VirtualBox.... What can I say. If you really need to run Linux desktop on Windows, you can use it. I guess whether to use VirtualBox or a dual boot depends on the use case. For occasional development, VirtualBox probably makes most sense, but if you work mostly on Linux-side, maybe go for dual boot.
-
-For me personally, it right now looks like I'm going to use Ubuntu on VirtualBox.
-
-EDIT: see [my comments](virtualbox.md) on using VirtualBox.
 
